@@ -1,4 +1,4 @@
-# Chapter 13 Exs
+# Chapter 13
 
 ## 13-1 
 Modify Listing 13.1 so that it solicits the user to enter the filename and reads the user’s response instead of using command-line arguments.

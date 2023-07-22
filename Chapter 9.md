@@ -1,4 +1,4 @@
-# Chapter 9 Exercises
+# Chapter 9
 
 ## 9-1 
 

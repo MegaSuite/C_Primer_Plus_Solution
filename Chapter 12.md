@@ -1,4 +1,4 @@
-# Chapter 12 Exs
+# Chapter 12
 ## 12-1 
 Rewrite the program in Listing 12.4 so that it does not use global variables.
 ***

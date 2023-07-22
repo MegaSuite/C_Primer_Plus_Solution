@@ -1,4 +1,4 @@
-# Chapter 10 Exs
+# Chapter 10
 
 ## 10-1
 Modify the rain program in Listing 10.7 so that it does the calculations using pointers instead of subscripts. (You still have to declare and

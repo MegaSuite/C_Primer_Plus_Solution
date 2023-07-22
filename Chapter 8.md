@@ -1,4 +1,4 @@
-# Chapter 8 Exs
+# Chapter 8
 ## 8-1
 Devise a program that counts the number of characters in its input up to the end of file.
 ***

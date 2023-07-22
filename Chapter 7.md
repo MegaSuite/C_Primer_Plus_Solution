@@ -1,4 +1,4 @@
-# Chapter 7 Exs
+# Chapter 7
 
 ## 7-1
 Write a program that reads input until encountering the `#` character and then reports the number of spaces read, the number of newline characters read,and the number of all other characters read.
