@@ -1,4 +1,4 @@
-# chapter 6
+# Chapter 06
 ## 6-1
 Write a program that creates an array with 26 elements and stores the 26 lowercase letters in it. Also have it show the array contents.
 
