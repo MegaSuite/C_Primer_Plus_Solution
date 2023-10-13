@@ -12,9 +12,15 @@ C语言的基本模块是什么？
 
 > 语法错误违反了组成语句或程序的规则。
 > 
+<<<<<<< HEAD
 > 这是一个有语法错误的英文例子：`Me  speak  English  good.`
 > 
 > 这是一个有语法错误的C语言例子：`printf"Where are the parentheses?";`
+=======
+> 这是一个有语法错误的英文例子：Me  speak  English  good.
+> 
+> 这是一个有语法错误的C语言例子：printf"Where are the parentheses?";
+>>>>>>> 3f0e5cf130fe32e82d799ee2e35fc269ad0c6105
 
 ## 2-3
 什么是语义错误？写出一个英语例子和C语言例子。
