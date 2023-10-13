@@ -11,13 +11,19 @@ C语言的基本模块是什么？
 什么是语法错误？写出一个英语例子和C语言例子。
 
 > 语法错误违反了组成语句或程序的规则。
-> 这是一个有语法错误的英文例子：Me  speak  English  good.。
-> 这是一个有语法错误的C语言例子：printf"Where are the parentheses?";。
+> 
+> 这是一个有语法错误的英文例子：`Me  speak  English  good.`
+> 
+> 这是一个有语法错误的C语言例子：`printf"Where are the parentheses?";`
 
 ## 2-3
 什么是语义错误？写出一个英语例子和C语言例子。
 
-> 语义错误是指含义错误。这是一个有语义错误的英文例子：This sentence isexcellent Czech.> 这是一个有语义错误的C语言例子： thrice_n =3 + n;
+> 语义错误是指含义错误。
+> 
+> 这是一个有语义错误的英文例子:`This sentence isexcellent Czech.`
+> 
+> 这是一个有语义错误的C语言例子： `thrice_n =3 + n;`
 
 ## 2-4
 Indiana Sloth编写了下面的程序，并征求你的意见。请帮助他评定。
@@ -31,14 +37,23 @@ Indiana Sloth编写了下面的程序，并征求你的意见。请帮助他评�
     return 0;
 ```
 > 第1行：以一个`#`开始；`studio.h`应改成`stdio.h`；然后用一对尖括号把`stdio.h`括起来。
+> 
 > 第2行：把`{}`改成`()`；注释末尾把`/*`改成`*/`。
-> 第3行：把(改成｛
+> 
+> 第3行：把`(`改成`｛`
+> 
 > 第4行：`int s`末尾加上一个分号。
+> 
 > 第5行没问题。
+> 
 > 第6行：赋值用`=`，而不是用`:=`（这说明Indiana Sloth了解`Pascal`）。另外，用于赋值的值56也不对，一年有52周，不是56周。
+> 
 > 第7行应该是：`printf("There are %d weeks in a year.\n", s)`;
+> 
 > 第9行：原程序中没有第9行，应该在该行加上一个右花括号`｝`。
+> 
 > 修改后的程序如下：
+
 ```c
 #include <stdio.h>
 int main(void) /* this prints the number of weeks in a year */
@@ -62,10 +77,15 @@ int main(void) /* this prints the number of weeks in a year */
       printf("%d + %d = %d", num, num, num + num);
 
 > a.Baa Baa Black Sheep.Have you any wool?（注意，Sheep.和Have之间没有空格）
+> 
 > b.Begone!
+> 
 > O creature of lard!
+>
 > c.What?
+>
 > No/nfish?（注意斜杠/和反斜杠\的效果不同，/只是一个普通的字符，原样打印）
+> 
 > d.2 + 2 = 4（注意，每个`%d`与列表中的值相对应。还要注意，`+`的意思是加法，可以在`printf()`语句内部计算）
 > 
 ## 2-6
