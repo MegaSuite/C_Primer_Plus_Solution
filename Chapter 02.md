@@ -1,6 +1,6 @@
 # Chapter 02
 
-> **Review Questions**
+<h1>Review Questions</h1>
 
 ## 2-1
 C语言的基本模块是什么？
@@ -137,6 +137,6 @@ int main(void)
 
 > 执行完第7行后，x是10，b是5。执行完第8行后，x是10，y是15。执行完第9行后，x是150，y是15。
 
-> **Programming Exercises**
+<h1>Programming Exercises</h1>
 
 **Omitted.**

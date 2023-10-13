@@ -1,6 +1,5 @@
 # Chapter 01
-
-> **Review Questions**
+<h1>Review Questions</h1>
 
 ## 1-1
 对编程而言，可移植性意味着什么？
@@ -38,6 +37,6 @@
 链接器的任务是什么？
 > 链接器把编译器翻译好的源代码以及库代码和启动代码组合起来，生成一个可执行程序。
 
-> **Programming Exercises**
-> 
+<h1>Programming Exercises</h1>
+
 **Omitted**
