@@ -12,15 +12,9 @@ C语言的基本模块是什么？
 
 > 语法错误违反了组成语句或程序的规则。
 > 
-<<<<<<< HEAD
 > 这是一个有语法错误的英文例子：`Me  speak  English  good.`
 > 
 > 这是一个有语法错误的C语言例子：`printf"Where are the parentheses?";`
-=======
-> 这是一个有语法错误的英文例子：Me  speak  English  good.
-> 
-> 这是一个有语法错误的C语言例子：printf"Where are the parentheses?";
->>>>>>> 3f0e5cf130fe32e82d799ee2e35fc269ad0c6105
 
 ## 2-3
 什么是语义错误？写出一个英语例子和C语言例子。
@@ -82,17 +76,17 @@ int main(void) /* this prints the number of weeks in a year */
       num = 2;
       printf("%d + %d = %d", num, num, num + num);
 
-> a.Baa Baa Black Sheep.Have you any wool?（注意，Sheep.和Have之间没有空格）
+> a.`Baa Baa Black Sheep.Have you any wool?`（注意，Sheep.和Have之间没有空格）
 > 
-> b.Begone!
+> b.`Begone!`
 > 
-> O creature of lard!
+> `O creature of lard!`
 >
-> c.What?
+> c.`What?`
 >
-> No/nfish?（注意斜杠/和反斜杠\的效果不同，/只是一个普通的字符，原样打印）
+> `No/nfish?`（注意斜杠`/`和反斜杠`\`的效果不同，`/`只是一个普通的字符，原样打印）
 > 
-> d.2 + 2 = 4（注意，每个`%d`与列表中的值相对应。还要注意，`+`的意思是加法，可以在`printf()`语句内部计算）
+> d.`2 + 2 = 4`（注意，每个`%d`与列表中的值相对应。还要注意，`+`的意思是加法，可以在`printf()`语句内部计算）
 > 
 ## 2-6
 在`main`、`int`、`function`、`char`、`=`中，哪些是C语言的关键字？
@@ -100,7 +94,7 @@ int main(void) /* this prints the number of weeks in a year */
 > 关键字是`int`和`char`（`main`是一个函数名；`function`是函数的意思；`=`是一个运算符）。
 
 ## 2-7
-如何以下面的格式输出变量words和lines的值（这里，3020和350代表两个变量的值）？
+如何以下面的格式输出变量`words`和`lines`的值（这里，`3020`和`350`代表两个变量的值）？
 > There were 3020 words and 350 lines.
 
 > `printf("There were %d words and %d lines.\n", words, lines);`
