@@ -1,5 +1,187 @@
 # Chapter 03
 
+<h1>Review Questions</h1>
+
+## 3-1
+指出下面各种数据使用的合适数据类型（有些可使用多种数据类型）：
+
+	a.East Simpleton的人口
+	b.DVD影碟的价格
+	c.本章出现次数最多的字母
+	d.本章出现次数最多的字母次数
+
+> a.int类型，也可以是short类型或unsigned  short类型。人口数是一个整数。
+> 
+> b.float类型，价格通常不是一个整数（也可以使用double类型，但实际上不需要那么高的精度）。
+> 
+> c.char类型。
+> 
+> d.int类型，也可以是unsigned类型。
+
+
+## 3-2
+在什么情况下要用long类型的变量代替int类型的变量？
+> 原因之一：在系统中要表示的数超过了int可表示的范围，这时要使用long类型。
+> 
+> 原因之二：如果要处理更大的值，那么使用一种在所有系统上都保证至少是 32 位的类型，可提高程序的可移植性。
+>
+
+## 3-3
+使用哪些可移植的数据类型可以获得32位有符号整数？选择的理由是什么？
+> 如果要正好获得32位的整数，可以使用int32_t类型。
+> 
+> 要获得可储存至少32位整数的最小类型，可以使用int_least32_t类型。
+> 
+> 如果要为32位整数提供最快的计算速度，可以选择int_fast32_t类型（假设你的系统已定义了上述类型）。
+> 
+## 3-4
+指出下列常量的类型和含义（如果有的话）：
+
+	a.'\b'
+	b.1066
+	c.99.44
+	d.0XAA
+	e.2.0e30
+
+> a.char类型常量（但是储存为int类型）
+> 
+> b.int类型常量
+> 
+> c.double类型常量
+> 
+> d.unsigned int类型常量，十六进制格式
+> 
+> e.double类型常量
+
+
+## 3-5
+`Dottie Cawm`编写了一个程序，请找出程序中的错误。
+```c
+include <stdio.h>
+main
+(
+	float g; h;
+	float tax, rate;
+	g = e21;
+	tax = rate*g;
+)
+```
+	第1行：应该是#include <stdio.h>
+	第2行：应该是int main(void)
+	第3行：把(改为｛
+	第4行：g和h之间的;改成,
+	第5行：没问题
+	第6行：没问题
+	第7行：虽然这数字比较大，但在e前面应至少有一个数字，如1e21或1.0e21都可以。
+	第8行：没问题，至少没有语法问题。
+	第9行：把)改成}
+	除此之外，还缺少一些内容。首先，没有给rate变量赋值；其次未使用h变量；而且程序不会报告计算结果。虽然这些错误不会影响程序的运行（编译器可能给出变量未被使用的警告），但是它们确实与程序设计的初衷不符合。另外，在该程序的末尾应该有一个return语句。
+
+下面是一个正确的版本，仅供参考：
+```c
+#include <stdio.h>
+int main(void)
+{
+	float g, h;
+	float tax, rate;
+	rate = 0.08;
+	g = 1.0e5;
+	tax = rate*g;
+	h = g + tax;
+	printf("You owe $%f plus $%f in taxes for a total of $%f.\n", g, tax, h);
+	return 0;
+}
+```
+
+## 3-6
+写出下列常量在声明中使用的数据类型和在printf()中对应的转换说明：
+![answer-6](https://blog-pic-storage.oss-cn-shanghai.aliyuncs.com/img/202310211708756.png)
+
+## 3-7
+写出下列常量在声明中使用的数据类型和在printf()中对应的转换说明（假设int为16位）：
+![answer-7](https://blog-pic-storage.oss-cn-shanghai.aliyuncs.com/img/202310211708757.png)
+> !!倒数第二个转换说明应为`%#x`
+## 3-8
+假设程序的开头有下列声明：
+
+	int imate = 2;
+	long shot = 53456;
+	char grade = 'A';
+	float log = 2.71828;
+
+把下面`printf()`语句中的转换字符补充完整：
+```c
+printf("The odds against the %__ were %__ to 1.\n", imate, shot);
+printf("A score of %__ is not an %__ grade.\n", log, grade);
+```
+> `printf("The odds against the %d were %ld to 1.\n", imate, shot);`
+> 
+> `printf("A score of %f is not an %c grade.\n", log, grade);`
+> 
+
+## 3-9
+假设ch是char类型的变量。分别使用转义序列、十进制值、八进制字符常量和十六进制字符常量把回车字符赋给ch（假设使用ASCII编码值）。
+
+> `ch = '\r';`
+> 
+> `ch = 13;`
+> 
+> `ch = '\015'`
+> 
+> `ch = '\xd'`
+
+## 3-10
+修正下面的程序（在C中，/表示除以）。
+```c
+void main(int) / this program is perfect /
+{
+	cows, legs integer;
+	printf("How many cow legs did you count?\n);
+	scanf("%c", legs);
+	cows = legs / 4;
+	printf("That implies there are %f cows.\n", cows)
+}
+```
+
+	最前面缺少一行（第0行）：#include <stdio.h>
+	第1行：使用/*和*/把注释括起来，或者在注释前面使用//。
+	第3行：int cows, legs;
+	第4行：count？\n");
+	第5行：把%c改为%d，把legs改为&legs。
+	第7行：把%f改为%d。
+	另外，在程序末尾还要加上return语句。
+
+下面是修改后的版本：
+```c
+#include <stdio.h>
+int main(void) /* this program is perfect */
+{
+	int cows, legs;
+	printf("How many cow legs did you count?\n");
+	scanf("%d", &legs);
+	cows = legs / 4;
+	printf("That implies there are %d cows.\n", cows);
+	return 0;
+}
+```
+## 3-11
+指出下列转义序列的含义：
+
+	a.\n
+	b.\\
+	c.\"
+	d.\t
+
+> a.换行字符
+> 
+> b.反斜杠字符
+> 
+> c.双引号字符
+> 
+> d.制表字符
+> 
+<h1>Programming Exercises</h1>
+
 ## 3-1
 Find out what your system does with integer overflow, floating-point overflow,and floating point underflow by using the experimental approach; that is,write programs that have these problems.
 ***
