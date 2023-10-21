@@ -95,11 +95,11 @@ int main(void)
 
 ## 3-6
 写出下列常量在声明中使用的数据类型和在printf()中对应的转换说明：
-![answer-6](https://github.com/MegaSuite/C_Primer_Plus_Solution/blob/main/Resources/answer-6.png?raw=true)
+![answer-6](Resources/answer-6.png)
 
 ## 3-7
 写出下列常量在声明中使用的数据类型和在printf()中对应的转换说明（假设int为16位）：
-![answer-7](https://github.com/MegaSuite/C_Primer_Plus_Solution/blob/main/Resources/answer-7.png?raw=true)
+![answer-7](Resources/answer-7.png)
 > !!倒数第二个转换说明应为`%#x`
 ## 3-8
 假设程序的开头有下列声明：
@@ -179,7 +179,8 @@ int main(void) /* this program is perfect */
 > c.双引号字符
 > 
 > d.制表字符
-> 
+
+
 <h1>Programming Exercises</h1>
 
 ## 3-1
@@ -211,6 +212,7 @@ int main(void)
 	return 0;
 }
 ```
+![overflow](Resources/overflow.png)
 ## 3-2
 Write a program that asks you to enter an ASCII code value, such as 66, and then prints the character having that ASCII code.
 ***
