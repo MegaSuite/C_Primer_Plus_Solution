@@ -213,6 +213,7 @@ int main(void)
 }
 ```
 ![overflow](Resources/overflow.png)
+
 ## 3-2
 Write a program that asks you to enter an ASCII code value, such as 66, and then prints the character having that ASCII code.
 ***
@@ -242,6 +243,7 @@ int main(void)
 	return 0;
 }
 ```
+
 ## 3-4
 Write a program that reads in a floating-point number and prints it first in decimal-point notation,then in exponential notation, and then, if your system supports it, p notation. Have the output use the following format (the actual number of digits displayed for the exponent depends on the system):
 
