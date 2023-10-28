@@ -5,7 +5,13 @@
 ## 4-1
 再次运行程序清单`4.1`但是在要求输入名时，请输入名和姓（根据英文书写习惯，名和姓中间有一个空格,看看会发生什么情况？为什么？
 
-> 程序不能正常运行。第1个`scanf()`语句只读取用户输入的名，而用户输入的姓仍留在输入缓冲区中。下一条`scanf()`语句在输入缓冲区查找重量时，从上次读入结束的地方开始读取。这样就把留在缓冲区的姓作为体重来读取，导致`scanf()`读取失败。另一方面，如果在要求输入姓名时输入`Lasha  144`，那么程序会把`144`作为用户的体重（虽然用户是在程序提示输入体重之前输入了144）。
+> 程序不能正常运行。
+> 
+> 第1个`scanf()`语句只读取用户输入的名，而用户输入的姓仍留在输入缓冲区中。
+> 
+> 下一条`scanf()`语句在输入缓冲区查找重量时，从上次读入结束的地方开始读取。这样就把留在缓冲区的姓作为体重来读取，导致`scanf()`读取失败。
+> 
+> 另一方面，如果在要求输入姓名时输入`Lasha  144`，那么程序会把`144`作为用户的体重（虽然用户是在程序提示输入体重之前输入了144）。
 
 ## 4-2
 假设下列示例都是完整程序中的一部分，它们打印的结果分别是什么？
@@ -14,8 +20,8 @@
 
 	b.printf("%c%c%c\n", 'H', 105, '\41');
 
-	c.  #define Q "His Hamlet was funny without being vulgar."
-		printf("%s\nhas %d characters.\n", Q, strlen(Q));
+	c.#define Q "His Hamlet was funny without being vulgar."
+	  printf("%s\nhas %d characters.\n", Q, strlen(Q));
 
 	d.printf("Is %2.2e the same as %2.2f?\n", 1201.0, 1201.0);
 ```
@@ -84,12 +90,12 @@ int main(void)
 float cost =12.99;
 float percent = 80.0;
 ```
-请构造一个使用BOOK、cost和percent的printf()语句，打印以下内容：
+请构造一个使用`BOOK`、`cost`和`percent`的`printf()`语句，打印以下内容：
 
 	This copy of "War and Peace" sells for $12.99.
 	That is 80% of list.
 
-> 记住，要打印%必须用%%：
+> 记住，要打印`%`必须用`%%`：
 ```c
 printf("This copy of \"%s\" sells for $%0.2f.\n", BOOK, cost);
 printf("That is %0.0f%% of list.\n", percent);
