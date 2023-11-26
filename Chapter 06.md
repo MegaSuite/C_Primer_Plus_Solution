@@ -1,7 +1,375 @@
 # Chapter 06
+
+<h1>Review Questions</h1>
+
+## 6-1
+写出执行完下列各行后`quack`的值是多少。后5行中使用的是第1行生成的`quack`的值。
+```c
+int quack = 2;
+quack += 5;
+quack *= 10;
+quack -= 6;
+quack /= 8;
+quack %= 3;
+```
+
+> 2，7，70，64，8，2。
+
+## 6-2
+假设value是int类型，下面循环的输出是什么？
+```c
+for (value = 36; value > 0; value /= 2)
+	printf("%3d", value);
+```
+> 该循环的输出是：36 18 9 4 2 1
+
+如果value是double类型，会出现什么问题？
+> 如果value是double类型，即使value小于1，循环的测试条件仍然为真。
+循环将一直执行，直到浮点数下溢生成0为止。另外，value是double类型
+时，%3d转换说明也不正确。
+
+## 6-3
+用代码表示以下测试条件：
+
+	a. x大于5
+	b. scanf()读取一个名为x的double类型值且失败
+	c. X的值等于5
+```c
+a.x > 5
+b.scanf("%lf",&x) != 1
+c.x == 5
+```
+
+## 6-4
+用代码表示以下测试条件：
+
+	a. 成功读入一个整数
+	b. 不等于
+	c. 大于或等于
+```c
+a.scanf("%d", &x) == 1
+b.x != 5
+c.x >= 20
+```
+
+## 6-5
+下面的程序有点问题，请找出问题所在。
+```c
+#include <stdio.h>
+int main(void)
+{                  /* 第3行 */
+	int i, j, list(10);       /* 第4行 */
+
+	for (i = 1, i <= 10, i++)    /* 第6行 */
+	{                /* 第7行 */
+		list[i] = 2*i + 3;      /* 第8行 */
+		for (j = 1, j > = i, j++)  /* 第9行 */
+			printf(" %d", list[j]); /* 第10行 */
+		printf("\n");        /* 第11行 */
+}                  /* 第12行 */
+```
+
+	第4行：应该是list[10]。
+	第6行：逗号改为分号。i的范围应该是0～9，不是1～10。
+	第9行：逗号改为分号。>=改成<=，否则，当i等于1时，该循环将成为无限循环。
+	第10行：在第11行之后少了一个右花括号。该右花括号与第7行的左花括号配对，形成一个for循环块。然后在这个右花括号与最后一个右花括号之间，少了一行return 0;。
+
+> 下面是一个正确的版本：
+```c
+#include <stdio.h>
+int main(void)
+{                /* 第3行 */
+	int i, j, list[10];      /* 第4行 */
+	for (i = 0; i < 10; i++)    /* 第6行 */
+	{              /* 第7行 */
+		list[i] = 2*i + 3;     /* 第8行 */
+		for (j = 1, j <= i, j++)  /* 第9行 */
+			printf(" %d", list[j]); /* 第10行 */
+		printf("\n");       /* 第11行 */
+	}
+	return 0;
+}
+```
+
+## 6-6
+编写一个程序打印下面的图案，要求使用嵌套循环：
+
+	$$$$$$$$
+	$$$$$$$$
+	$$$$$$$$
+	$$$$$$$$
+
+```c
+#include <stdio.h>
+int main(void)
+{
+	int col, row;
+	for (row = 1; row <= 4; row++)
+	{
+		for (col = 1; col <= 8; col++)
+			printf("$");
+		printf("\n");
+	}
+	return 0;
+}
+```
+
+## 6-7
+下面的程序各打印什么内容？
+```c
+//a
+#include <stdio.h>
+int main(void)
+{
+	int i = 0;
+
+	while (++i < 4)
+		printf("Hi! ");
+	
+	do
+		printf("Bye! ");
+	while (i++ < 8);
+	
+	return 0;
+}
+
+//b
+#include <stdio.h>
+int main(void)
+{
+	int i;
+	char ch;
+
+	for (i = 0, ch = 'A'; i < 4; i++, ch += 2 * i)
+		printf("%c", ch);
+
+	return 0;
+}
+```
+
+	a.Hi! Hi! Hi! Bye! Bye! Bye! Bye! Bye!
+	b.ACGM（因为代码中把int类型值与char类型值相加，编译器可能警告会损失有效数字）
+
+## 6-8
+假设用户输入的是`Go west, young man!`，下面各程序的输出是什么？（在ASCII码中，!紧跟在空格字符后面）
+```c
+//a
+#include <stdio.h>
+int main(void)
+{
+	char ch;
+
+	scanf("%c", &ch);
+	while (ch != 'g')
+	{
+		printf("%c", ch);
+		scanf("%c", &ch);
+	}
+	return 0;
+}
+
+//b
+#include <stdio.h>
+int main(void)
+{
+	char ch;
+	scanf("%c", &ch);
+	while (ch != 'g')
+	{
+		printf("%c", ++ch);
+		scanf("%c", &ch);
+	}
+	return 0;
+}
+
+//c
+#include <stdio.h>
+int main(void)
+{
+	char ch;
+	do {
+		scanf("%c", &ch);
+		printf("%c", ch);
+	} while (ch != 'g');
+	return 0;
+}
+
+//d
+#include <stdio.h>
+int main(void)
+{
+	char ch;
+	scanf("%c", &ch);
+	for (ch = '$'; ch != 'g'; scanf("%c", &ch))
+		printf("%c", ch);
+	return 0;
+}
+```
+
+```c
+a.Go west, youn
+b.Hp!xftu-!zpvo
+c.Go west, young
+d.$o west, youn
+```
+
+## 6-9
+下面的程序打印什么内容？
+```c
+#include <stdio.h>
+int main(void)
+{
+	int n, m;
+	n = 30;
+
+	while (++n <= 33)
+		printf("%d|", n);
+
+	n = 30;
+	do
+		printf("%d|", n);
+	while (++n <= 33);
+
+	printf("\n***\n");
+
+	for (n = 1; n*n < 200; n += 4)
+		printf("%d\n", n);
+
+	printf("\n***\n");
+
+	for (n = 2, m = 6; n < m; n *= 2, m += 2)
+		printf("%d %d\n", n, m);
+	
+	printf("\n***\n");
+
+	for (n = 5; n > 0; n--)
+	{
+		for (m = 0; m <= n; m++)
+			printf("=");
+		printf("\n");
+	}
+	return 0;
+}
+```
+
+```c
+31|32|33|30|31|32|33|
+***
+1
+5
+9
+13
+***
+2 6
+4 8
+8 10
+***
+======
+=====
+====
+===
+==
+```
+
+## 6-10
+考虑下面的声明：
+```c
+double mint[10];
+```
+
+	a.数组名是什么？
+	b.该数组有多少个元素？
+	c.每个元素可以储存什么类型的值？
+	d.下面的哪一个scanf()的用法正确？
+		i.scanf("%lf", mint[2])
+		ii.scanf("%lf", &mint[2])
+		iii.scanf("%lf", &mint)
+>
+	a.mint
+	b.10个元素
+	c.double 类型的值
+	d.第ii行正确，mint[2]是double类型的值，&mint[2]是它在内存中的位置。
+
+## 6-11
+Noah先生喜欢以2计数，所以编写了下面的程序，创建了一个储存`2、4、6、8`等数字的数组。这个程序是否有错误之处？如果有，请指出。
+```c
+#include <stdio.h>
+#define SIZE 8
+int main(void)
+{
+	int by_twos[SIZE];
+	int index;
+	for (index = 1; index <= SIZE; index++)
+		by_twos[index] = 2 * index;
+	for (index = 1; index <= SIZE; index++)
+		printf("%d ", by_twos);
+	printf("\n");
+	return 0;
+}
+```
+因为第1个元素的索引是0，所以循环的范围应该是`0～SIZE-1`，而不是`1～SIZE`。但是，如果只是这样更改会导致赋给第1个元素的值是0，不是2。所以，应重写这个循环：
+```c
+for (index = 0; index < SIZE; index++)
+	by_twos[index] = 2 * (index + 1);
+```
+与此类似，第2个循环的范围也要更改。另外，应该在数组名后面使用数组索引：
+```c
+for( index = 0; index < SIZE; index++)
+	printf("%d ", by_twos[index]);
+```
+> 错误的循环条件会成为程序的定时炸弹。程序可能开始运行良好，
+> 但是由于数据被放在错误的位置，可能在某一时刻导致程序不能正常工作。
+
+## 6-12
+假设要编写一个返回long类型值的函数，函数定义中应包含什么？
+
+> 该函数应声明为返回类型为long，并包含一个返回long类型值的return语句。
+
+## 6-13
+定义一个函数，接受一个int类型的参数，并以long类型返回参数的平方值。
+
+> 把num的类型强制转换成long类型，确保计算使用long类型而不是int类型。
+> 
+> 在int为16位的系统中，两个int类型值的乘积在返回之前会被截断为一个int类型的值，这可能会丢失数据。
+```c
+long square(int num)
+{
+	return ((long) num) * num;
+}
+```
+
+## 6-14
+下面的程序打印什么内容？
+```c
+#include <stdio.h>
+int main(void)
+{
+	int k;
+	for (k = 1, printf("%d: Hi!\n", k); printf("k = %d\n", k),
+		k*k < 26; k += 2, printf("Now k is %d\n", k))
+			printf("k is %d in the loop\n", k);
+	return 0;
+}
+```
+
+```c
+1: Hi!
+k = 1
+k is 1 in the loop
+Now k is 3
+k = 3
+k is 3 in the loop
+Now k is 5
+k = 5
+k is 5 in the loop
+Now k is 7
+k = 7
+```
+
+<h1>Programming Exercises</h1>
+
 ## 6-1
 Write a program that creates an array with 26 elements and stores the 26 lowercase letters in it. Also have it show the array contents.
-
 ---
 ```c
 #include <stdio.h>
