@@ -1,5 +1,325 @@
 # Chapter 07
 
+<h1>Review Questions</h1>
+
+## 7-1
+判断下列表达式是true还是false。
+```c
+a 100 > 3 && 'a'>'c'
+b 100 > 3 || 'a'>'c'
+c !(100>3)
+```
+
+> b是true，其他都是false。
+
+## 7-2
+根据下列描述的条件，分别构造一个表达式：
+```c
+a  number等于或大于90，但是小于100
+b  h不是字符q或k
+c  number在1～9之间（包括1和9），但不是5
+d  number不在1～9之间
+```
+
+> a.number >= 90 && number < 100
+> 
+> b.ch != 'q' && ch != 'k'
+> 
+>c.(number >= 1 && number <= 9) && number != 5
+>
+>d.number < 1 || number > 9
+
+## 7-3
+下面的程序关系表达式过于复杂，而且还有些错误，请简化并改正。
+```c
+#include <stdio.h>
+int main(void)                  /* 1 */
+{                        /* 2 */
+	int weight, height; /* weight以磅为单位，height以英寸为单位 */
+											/* 4 */
+	scanf("%d , weight, height);          /* 5 */
+	if (weight < 100 && height > 64)        /* 6 */
+		if (height >= 72)             /* 7 */
+			printf("You are very tall for your weight.\n");
+		else if (height < 72 &&> 64)        /* 9 */
+			printf("You are tall for your weight.\n");/* 10 */
+	else if (weight > 300 && !(weight <= 300)  /* 11 */
+		&& height < 48)            /* 12 */
+		if (!(height >= 48))            /* 13 */
+			printf(" You are quite short for your weight.\n");
+	else                     /* 15 */
+		printf("Your weight is ideal.\n");      /* 16 */
+													/* 17 */
+	return 0;
+}
+```
+
+```c
+- 第5行：应该是 scanf("%d  %d",  &weight,  &height); 这一行前面应该有提示用户输入的语句。
+- 第9行：测试条件中要表达的意思是(height < 72 && height > 64)。根据前面第7行中的测试条件，能到第9行的height一定小于72，所以，只需要用表达式(height > 64)即可。但是，第6行中已经包含了height > 64这个条件，所以这里完全不必再判断，else if 应改成else。
+- 第11行：条件冗余。第2个表达式（weight不小于或不等于300）和第1个表达式含义相同。只需用一个简单的表达式(weight > 300)即可。但是，问题不止于此。第  11  行是一个错误的if，这行的else  if与第6行的if匹配。但是，根据if的“最接近规则”，该else  if应该与第9行的else  if匹配。因此，在weight小于100且小于或等于64时到达第11行，此情况难以成立。
+- 第7行～第10行：应该用花括号括起来。这样第11行就确定与第6行匹配。但是，如果把第9行的else if替换成简单的else，就不需要使用花括号。
+- 第13行：应简化成if (height > 48)。实际上，完全可以省略这一行。因为第12行已经测试过该条件。
+下面是修改后的版本：
+#include <stdio.h>
+int main(void)
+{
+	int weight, height; /* weight in lbs, height in inches */
+	printf("Enter your weight in pounds and ");
+	printf("your height in inches.\n");
+	scanf("%d %d", &weight, &height);
+	if (weight < 100 && height > 64)
+	{
+		if (height >= 72)
+			printf("You are very tall for your weight.\n");
+		else
+			printf("You are tall for your weight.\n");
+	}
+	else if (weight > 300 && height < 48)
+		printf(" You are quite short for your weight.\n");
+	else
+		printf("Your weight is ideal.\n");
+	return 0;
+}
+```	
+
+## 7-4
+下列表达式的值是多少？
+```c
+a.5 > 2
+b.3 + 4 > 2 && 3 < 2
+c.x >= y || y > x
+d.d = 5 + ( 6 > 2 )
+e.'X' > 'T' ? 10 : 5
+f.x > y ? y > x : x > y
+```
+
+> a.1。5确实大于2，表达式为真，即是1。
+>
+> b.0。3比2大，表达式为假，即是0。
+> 
+> c.1。如果第1个表达式为假，则第2个表达式为真，反之亦然。所以，只要一个表达式为真，整个表达式的结果即为真。
+>
+> d.6。因为6 > 2为真，所以(6 > 2)的值为1。
+>
+> e.10。因为测试条件为真。
+>
+>f.0。如果x > y为真，表达式的值就是y > x，这种情况下它为假或0。如果x > y为假，那么表达式的值就是x > y，这种情况下为假。
+
+## 7-5
+下面的程序将打印什么？
+```c
+#include <stdio.h>
+int main(void)
+{
+	int num;
+	for (num = 1; num <= 11; num++)
+	{
+		if (num % 3 == 0)
+			putchar('$');
+		else
+			putchar('*');
+			putchar('#');
+		putchar('%');
+	}
+	putchar('\n');
+	return 0;
+}
+```
+
+```c
+该程序打印以下内容：
+*#%*#%$#%*#%*#%$#%*#%*#%$#%*#%*#%
+无论怎样缩排，每次循环都会打印#，因为缩排并不能让putchar('#');成为if else复合语句的一部分。
+```
+
+## 7-6
+下面的程序将打印什么？
+```c
+#include <stdio.h>
+int main(void)
+{
+	int i = 0;
+	while (i < 3) 
+	{
+		switch (i++) 
+		{
+			case 0: printf("fat ");
+			case 1: printf("hat ");
+			case 2: printf("cat ");
+			default: printf("Oh no!");
+		}
+		putchar('\n');
+	}
+	return 0;
+}
+```
+```c
+程序打印以下内容：
+fat hat cat Oh no!
+hat cat Oh no!
+cat Oh no!
+```
+
+## 7-7
+下面的程序有哪些错误？
+```c
+#include <stdio.h>
+int main(void)
+{
+	char ch;
+	int lc = 0; /*统计小写字母
+	int uc = 0; /* 统计大写字母
+	int oc = 0; /* 统计其他字母
+	while ((ch = getchar()) != '#')
+	{
+		if ('a' <= ch >= 'z')
+			lc++;
+		else if (!(ch < 'A') || !(ch > 'Z')
+			uc++;
+		oc++;
+	}
+	printf(%d lowercase, %d uppercase, %d other, lc, uc, oc);
+	return 0;
+}
+```
+
+
+第5行～第7行的注释要以*/结尾，或者把注释开头的/*换成//。表达式'a' <= ch >= 'z'应替换成ch >= 'a' && ch <= 'z'。或者，包含  ctype.h  并使用  islower()，这种方法更简单，而且可移植性更高。
+
+虽然从 C 的语法方面看，'a' <= ch >= 'z'是有效的表达式，但是它的含义不明。因为关系运算符从左往右结合，该表达式被解释成('a' <= ch) >= 'z'。圆括号中的表达式的值不是1就是0（真或假），然后判断该值是否大于或等于'z'的数值码。1和0都不满足测试条件，所以整个表达式恒为0（假）。
+
+
+在第2个测试表达式中，应该把||改成&&。另外，虽然!(ch<  'A')是有效的表达式，而且含义也正确，但是用ch  >=  'A'更简单。这一行的'z'后面应该有两个圆括号。更简单的方法是使用isuupper()。在oc++;前面应该加一行else。否则，每输入一个字符， uc 都会递增 1。另外，在 printf()语句中的格式化字符串应该用双引号括起来。
+
+下面是修改后的版本：
+```c
+#include <stdio.h>
+#include <ctype.h>
+int main(void)
+{
+	char ch;
+	int lc = 0; /*统计小写字母*/
+	int uc = 0; /*统计大写字母*/
+	int oc = 0; /*统计其他字母*/
+	while ((ch = getchar()) != '#')
+	{
+		if (islower(ch))
+			lc++;
+		else if (isupper(ch))
+			uc++;
+		else
+			oc++;
+	}
+	printf("%d lowercase, %d uppercase, %d other", lc, uc, oc);
+	return 0;
+}
+```
+
+
+## 7-8
+下面的程序将打印什么？
+```c
+/* retire.c */
+#include <stdio.h>
+int main(void)
+{
+	int age = 20;
+	while (age++ <= 65)
+	{
+		if ((age % 20) == 0) /* age是否能被20整除？ */
+			printf("You are %d.Here is a raise.\n", age);
+		if (age = 65)
+			printf("You are %d.Here is your gold watch.\n", age);
+	}
+	return 0;
+}
+```
+```c
+该程序将不停重复打印下面一行：
+You are 65.Here is your gold watch.
+问题出在：if (age = 65)
+这行代码把age设置为65，使得每次迭代的测试条件都为真。
+```
+
+## 7-9
+给定下面的输入时，以下程序将打印什么？
+```
+q
+c
+h
+b
+```
+```c
+#include <stdio.h>
+int main(void)
+{
+	char ch;
+	while ((ch = getchar()) != '#')
+	{
+		if (ch == '\n')
+			continue;
+		printf("Step 1\n");
+		if (ch == 'c')
+			continue;
+		else if (ch == 'b')
+			break;
+		else if (ch == 'h')
+			goto laststep;
+		printf("Step 2\n");
+	laststep: printf("Step 3\n");
+	}
+	printf("Done\n");
+	return 0;
+}
+```
+
+```c
+下面是根据给定输入的运行结果：
+> q
+Step 1
+Step 2
+Step 3
+> c
+Step 1
+> h
+Step 1
+Step 3
+> b
+Step 1
+Done
+注意，b和#都可以结束循环。但是输入b会使得程序打印step 1，而输入#则不会。
+```
+
+## 7-10
+重写复习题9，但这次不能使用continue和goto语句
+```c
+#include <stdio.h>
+int main(void)
+{
+	char ch;
+	while ((ch = getchar()) != '#')
+	{
+		if (ch != '\n')
+		{
+			printf("Step 1\n");
+			if (ch == 'b')
+				break;
+			else if (ch != 'c')
+			{
+				if (ch != 'h')
+					printf("Step 2\n");
+				printf("Step 3\n");
+			}
+		}
+	}
+	printf("Done\n");
+	return 0;
+}
+```
+
+<h1>Programming Exercises</h1>
+
 ## 7-1
 Write a program that reads input until encountering the `#` character and then reports the number of spaces read, the number of newline characters read,and the number of all other characters read.
 ***
@@ -181,7 +501,7 @@ int main(void)
 ```
 
 ## 7-6
-Write a program that reads input up to `#`and reports the number of times that the sequence ei occurs.
+Write a program that reads input up to `#`and reports the number of times that the sequence `ei` occurs.
 ***
 ```c
 #include <stdio.h>
@@ -678,5 +998,6 @@ float calculate_shipping(float weight)
 		return SHIPPING_20LB + SHIPPING_OVER_20LB_RATE * (weight - 20.0);
 }
 ```
+
 
 
