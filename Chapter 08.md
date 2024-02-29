@@ -1,4 +1,105 @@
 # Chapter 08
+
+<h1>Review Questions</h1>
+
+## 8-1
+putchar(getchar())是一个有效表达式，它实现什么功能？
+getchar(putchar())是否也是有效表达式？
+
+	表达式 putchar(getchar())使程序读取下一个输入字符并打印出来。
+	getchar()的返回值是putchar()的参数。但getchar(putchar())是无效的表达式，
+	因为getchar()不需要参数，而putchar()需要一个参数。
+
+## 8-2
+下面的语句分别完成什么任务？
+```c
+a.putchar('H');
+b.putchar('\007');
+c.putchar('\n');
+d.putchar('\b');
+```
+
+```c
+a.显示字符H。
+b.如果系统使用ASCII，则发出一声警报。
+c.把光标移至下一行的开始。
+d.退后一格。
+```
+
+## 8-3
+假设有一个名为  count  的可执行程序，用于统计输入的字符数。设计一个使用 count 程序统计essay文件中字符数的命令行，并把统计结果保存在essayct文件中。
+```bash
+count <essay >essayct
+或者
+count >essayct <essay
+```
+
+## 8-4
+给定复习题3中的程序和文件，下面哪一条是有效的命令？
+```c
+a.essayct <essay
+b.count essay
+c.essay >count
+```
+> 都不是
+
+## 8-5
+EOF是什么？
+
+>EOF是由getchar()和scanf()返回的信号（一个特殊值），表明函数检测到文件结尾。
+
+## 8-6
+对于给定的输出（ch是int类型，而且是缓冲输入），下面各程序段的输出分别是什么？
+
+a.输入如下:
+
+`If you quit, I will.[enter]`
+
+程序段如下：
+```c
+while ((ch = getchar()) != 'i')
+putchar(ch);
+```
+b.输入如下：
+
+`Harhar[enter]`
+
+程序段如下：
+```c
+while ((ch = getchar()) != '\n')
+{
+	putchar(ch++);
+	putchar(++ch);
+}
+```
+
+a.输出是：`If you qu`.注意，字符I与字符i不同。还要注意，没有打印i，因为循环在检测到i之后就退出了。
+
+b.如果系统使用ASCII，输出是：`HJacrthjacrt`。while的第1轮迭代中，为ch读取的值是H。第1个putchar()语句使用的ch的值是H，打印完毕后，ch的值加1（现在是ch的值是I）。然后到第2个putchar()语句，因为是++ch，所以先递增ch（现在ch的值是J）再打印它的值。然后进入下一轮迭代，读取输入序列中的下一个字符（a），重复以上步骤。需要注意的是，两个递增运算符只在ch被赋值后影响它的值，不会让程序在输入序列中移动。
+
+## 8-7
+C如何处理不同计算机系统中的不同文件和换行约定？
+
+> C的标准I/O库把不同的文件映射为统一的流来统一处理。
+>
+
+
+## 8-8
+在使用缓冲输入的系统中，把数值和字符混合输入会遇到什么潜在的问题？
+
+> 数值输入会跳过空格和换行符，但是字符输入不会。假设有下面的代码：
+```c
+int score;
+char grade;
+printf("Enter the score.\n");
+scanf("%s", %score);
+printf("Enter the letter grade.\n");
+grade = getchar();
+```
+>如果输入分数98，然后按下Enter键把分数发送给程序，其实还发送了一个换行符。这个换行符会留在输入序列中，成为下一个读取的值（grade）。如果在字符输入之前输入了数字，就应该在处理字符输入之前添加删除换行符的代码。
+
+<h1>Programming Exercises</h1>
+
 ## 8-1
 Devise a program that counts the number of characters in its input up to the end of file.
 ***
