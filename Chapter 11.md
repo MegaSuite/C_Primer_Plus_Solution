@@ -1,4 +1,351 @@
 # Chapter 11
+
+<h1>Review Questions</h1>
+
+## 11-1
+下面字符串的声明有什么问题？
+```c
+int main(void)
+{
+	char name[] = {'F', 'e', 's', 's' };
+	...
+}
+```
+
+> 如果希望得到一个字符串，初始化列表中应包含'\0'。当然，也可以用另一种语法自动添加空字符：`char name[] = "Fess";`
+
+## 11-2
+下面的程序会打印什么？
+```c
+#include <stdio.h>
+int main(void)
+{
+	char note[] = "See you at the snack bar.";
+	char *ptr;
+	ptr = note;
+	puts(ptr);
+	puts(++ptr);
+	note[7] = '\0';
+	puts(note);
+	puts(++ptr);
+	return 0;
+}
+```
+
+	See you at the snack bar.
+	ee you at the snack bar.
+	See you
+	e you
+
+## 11-3
+下面的程序会打印什么？
+```c
+#include <stdio.h>
+#include <string.h>
+int main(void)
+{
+	char food [] = "Yummy";
+	char *ptr;
+	ptr = food + strlen(food);
+	while (--ptr >= food)
+		puts(ptr);
+	return 0;
+}
+```
+
+	y
+	my
+	mmy
+	ummy
+	Yummy
+
+## 11-4
+下面的程序会打印什么？
+```c
+#include <stdio.h>
+#include <string.h>
+int main(void)
+{
+	char goldwyn[40] = "art of it all ";
+	char samuel[40] = "I read p";
+	const char * quote = "the way through.";
+	strcat(goldwyn, quote);
+	strcat(samuel, goldwyn);
+	puts(samuel);
+	return 0;
+}
+```
+
+> I read part of it all the way through.
+
+## 11-5
+下面的练习涉及字符串、循环、指针和递增指针。首先，假设定义了下面的函数：
+```c
+#include <stdio.h>
+char *pr(char *str)
+{
+	char *pc;
+	pc = str;
+	while (*pc)
+		putchar(*pc++);
+	do {
+		putchar(*--pc);
+	} while (pc - str);
+	return (pc);
+}
+```
+考虑下面的函数调用：
+```c
+x = pr("Ho Ho Ho!");
+```
+
+	a.将打印什么？
+	b.x是什么类型？
+	c.x的值是什么？
+	d.表达式*--pc是什么意思？与--*pc有何不同？
+	e.如果用*pc--替换*--pc，会打印什么？
+	f.两个while循环用来测试什么？
+	g.如果pr()函数的参数是空字符串，会怎样？
+	h.必须在主调函数中做什么，才能让pr()函数正常运行？
+
+```c
+	a.Ho Ho Ho!!oH oH oH
+	b.指向char的指针（即，char *）。
+	c.第1个H的地址。
+	d.*--pc的意思是把指针递减1，并使用储存在该位置上的值。--*pc的意思是解引用pc指向的值，然后把该值减1（例如，H变成G）。
+	e.Ho Ho Ho!!oH oH o
+	注意在两个！之间有一个空字符，但是通常该字符不会产生任何打印的效果。
+	f.while  (*pc)检查  pc  是否指向一个空字符（即，是否指向字符串的末尾）。while 的测试条件中使用储存在指针指向位置上的值。
+	while (pc - str)检查pc是否与str指向相同的位置（即，字符串的开头）。while的测试条件中使用储存在指针指向位置上的值。
+	g.进入第1个while循环后，pc指向空字符。进入第2个while循环后，它指向空字符前面的存储区（即，str  所指向位置前面的位置）。把该字节解释成一个字符，并打印这个字符。然后指针退回到前面的字节处。永远都不会满足结束条件(pc == str)，所以这个过程会一直持续下去。
+	h.必须在主调程序中声明pr()：char * pr(char *);
+```
+
+## 11-6
+假设有如下声明：`char sign = '$';`，`sign`占用多少字节的内存？`'$'`占用多少字节的内存？`"$"`占用多少字节的内存？
+
+> 字符变量占用一个字节，所以sign占1字节。但是字符常量储存为int类型，意思是`'$'`通常占用2或4字节。但是实际上只使用int的1字节储存`'$'`的编码。字符串`"$"`使用2字节：一个字节储存`'$'`的编码，一个字节储存的`'\0'`编码。
+
+## 11-7
+下面的程序会打印出什么？
+```c
+#include <stdio.h>
+#include <string.h>
+#define M1 "How are ya, sweetie? "
+char M2[40] = "Beat the clock.";
+char * M3 = "chat";
+int main(void)
+{
+	char words[80];
+	printf(M1);
+	puts(M1);
+	puts(M2);
+	puts(M2 + 1);
+	strcpy(words, M2);
+	strcat(words, " Win a toy.");
+	puts(words);
+	words[4] = '\0';
+	puts(words);
+	while (*M3)
+		puts(M3++);
+	puts(--M3);
+	puts(--M3);
+	M3 = M1;
+	puts(M3);
+	return 0;
+}
+```
+```c
+打印的内容如下：
+How are ya, sweetie? How are ya, sweetie?
+Beat the clock.
+eat the clock.
+Beat the clock. Win a toy.
+Beat
+chat
+hat
+at
+t
+t
+at
+How are ya, sweetie?
+```
+
+## 11-8
+下面的程序会打印出什么？
+```c
+#include <stdio.h>
+int main(void)
+{
+	char str1 [] = "gawsie";
+	char str2 [] = "bletonism";
+	char *ps;
+	int i = 0;
+	for (ps = str1; *ps != '\0'; ps++) 
+	{
+		if (*ps == 'a' || *ps == 'e')
+			putchar(*ps);
+		else
+			(*ps)--;
+		putchar(*ps);
+	}
+	putchar('\n');
+	while (str2[i] != '\0') 
+	{
+		printf("%c", i % 3 ? str2[i] : '*');
+		++i;
+	}
+	return 0;
+}
+```
+```c
+打印的内容如下：
+faavrhee
+*le*on*sm
+```
+
+## 11-9
+本章定义的s_gets()函数，用指针表示法代替数组表示法便可减少一个变量i。请改写该函数。
+```c
+#include <stdio.h> // 提供fgets()和getchar()的原型
+char * s_gets(char * st, int n)
+{
+	char * ret_val;
+	ret_val = fgets(st, n, stdin);
+	if (ret_val)
+	{
+		while (*st != '\n' && *st != '\0')
+			st++;
+		if (*st == '\n')
+			*st = '\0';
+		else
+			while (getchar() != '\n')
+				continue;
+	}
+	return ret_val;
+}
+```
+
+## 11-10
+strlen()函数接受一个指向字符串的指针作为参数，并返回该字符串的长度。请编写一个这样的函数。
+```c
+int strlen(const char * s)
+{
+	int ct = 0;
+	while (*s++)   // 或者while (*s++ != '\0')
+		ct++;
+	return(ct);
+}
+```
+
+## 11-11
+本章定义的s_gets()函数，可以用strchr()函数代替其中的while循环来查找换行符。请改写该函数。
+```c
+#include <stdio.h>   // 提供 fgets()和getchar()的原型
+#include <string.h>  // 提供 strchr()的原型
+char * s_gets(char * st, int n)
+{
+	char * ret_val;
+	char * find;
+	ret_val = fgets(st, n, stdin);
+	if (ret_val)
+	{
+		find = strchr(st, '\n');  // 查找换行符
+		if (find)          // 如果地址不是 NULL,
+			*find = '\0';     // 在此处放置一个空字符
+		else
+			while (getchar() != '\n')
+				continue;
+	}
+	return ret_val;
+}
+```
+
+## 11-12
+设计一个函数，接受一个指向字符串的指针，返回指向该字符串第1个空格字符的指针，或如果未找到空格字符，则返回空指针。
+```c
+#include <stdio.h>  /* 提供 NULL 的定义 */
+char * strblk(char * string)
+{
+	while (*string != ' ' && *string != '\0')
+		string++;    /* 在第1个空白或空字符处停止 */
+	if (*string == '\0')
+		return NULL;   /* NULL 指空指针 */
+	else
+		return string;
+}
+
+//下面是第2种方案，可以防止函数修改字符串，但是允许使用返回值改变字符串。表达式(char*)string被称为“通过强制类型转换取消const”。
+
+#include <stdio.h>  /*提供 NULL 的定义*/
+char * strblk(const char * string)
+{
+	while (*string != ' ' && *string != '\0')
+		string++;    /*在第1个空白或空字符处停止*/
+	if (*string == '\0')
+		return NULL;   /* NULL 指空指针*/
+	else
+		return (char *)string;
+}
+```
+
+## 11-13
+重写程序清单11.21，使用ctype.h头文件中的函数，以便无论用户选择大写还是小写，该程序都能正确识别答案。
+```c
+/* compare.c -- 可行方案 */
+#include <stdio.h>
+#include <string.h> // 提供strcmp()的原型
+#include <ctype.h>
+#define ANSWER "GRANT"
+#define SIZE 40
+char * s_gets(char * st, int n);
+void ToUpper(char * str);
+int main(void)
+{
+	char try[SIZE];
+	puts("Who is buried in Grant's tomb?");
+	s_gets(try, SIZE);
+	ToUpper(try);
+	while (strcmp(try, ANSWER) != 0)
+	{
+		puts("No, that's wrong.Try again.");
+		s_gets(try, SIZE);
+		ToUpper(try);
+	}
+	puts("That's right!");
+	return 0;
+}
+
+void ToUpper(char * str)
+{
+	while (*str != '\0')
+	{
+		*str = toupper(*str);
+		str++;
+	}
+}
+
+char * s_gets(char * st, int n)
+{
+	char * ret_val;
+	int i = 0;
+	ret_val = fgets(st, n, stdin);
+	if (ret_val)
+	{
+		while (st[i] != '\n' && st[i] != '\0')
+			i++;
+		if (st[i] == '\n')
+			st[i] = '\0';
+		else
+			while (getchar() != '\n')
+				continue;
+	}
+	return ret_val;
+}
+```
+
+<h1>Programming Exercises</h1>
+
 ## 11-1
 Design and test a function that fetches the next n characters from input (including blanks, tabs, and newlines), storing the results in an array whose address is passed as an argument.
 ***
